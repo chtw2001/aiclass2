@@ -3,7 +3,6 @@
 import numpy as np
 from collections import defaultdict
 
-
 class ProbDist:
     """이산 확률 분포를 정의하는 클래스.
     생성자에 확률변수(random variable)를 정의함.
@@ -39,7 +38,10 @@ class ProbDist:
         total = sum(self.prob.values())
         if not np.isclose(total, 1.0):
             for val in self.prob:
-                self.prob[val] /= total
+                if total == 0:
+                    self.prob[val] = 1
+                else:
+                    self.prob[val] /= total
         return self
 
     def show_approx(self, numfmt='{:.3g}'):
